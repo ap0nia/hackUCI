@@ -93,14 +93,21 @@ async function start() {
     /**
      * 1) get the session ID from the request body
      */
+    const session_ID = req.body.session_ID
 
     /**
      * 2) lookup the session in the database
      */
+    const sessions = await db.session.findFirst({
+      where: {
+        id: session_ID 
+      }
+    })
 
     /**
      * 3) return the session data
      */
+    res.json(sessions)
   })
 
   /**
