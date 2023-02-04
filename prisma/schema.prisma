@@ -8,7 +8,7 @@ datasource db {
 }
 
 model session {
-  id     BigInt @id @default(sequence())
+  id     Int    @id @default(sequence())
   status String @db.String(255)
 }
 
@@ -21,14 +21,14 @@ model migration_internal_statements {
 }
 
 model message {
-  id        BigInt @id @default(sequence())
+  id        Int    @id @default(sequence())
   userid    Int
   sessionid String @db.String(255)
   content   String @db.String(255)
 }
 
 model user {
-  id        BigInt @id @default(sequence())
+  id        Int    @id @default(sequence())
   email     String @db.String(255)
   name      String @db.String(255)
   role      String @db.String(255)
