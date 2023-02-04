@@ -1,0 +1,73 @@
+<div class="form-container">
+  <form action="/submit" method="post">
+    <div id="imgcontainer">
+      <img src="/favicon.png" alt="" />
+    </div>
+    <div class="form-group">
+      <label for="name">Name:</label>
+      <input placeholder="name" type="text" id="name" name="name" />
+    </div>
+
+    <div class="form-group">
+      <label for="email">Email:</label>
+      <input placeholder="email" type="email" id="email" name="email" />
+    </div>
+  </form>
+</div>
+
+<style>
+  .form-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+    width: 100%;
+    margin: auto;
+    position: absolute;
+    top: 50%;
+    bottom: 50%;
+  }
+
+  .form-container form {
+    border-style: solid;
+    border-width: 2px;
+    border-radius: 3px;
+    border-color: black;
+  }
+
+  .form-group {
+    margin: 10px 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  #imgcontainer {
+    height: auto;
+    width: auto;
+    justify-content: center;
+
+    margin-top: 10px;
+  }
+  #imgcontainer img {
+    object-fit: cover;
+    margin: auto;
+    /*
+    margin-left: auto;
+    */
+    height: 90px;
+    width: 90px;
+  }
+  label {
+    font-weight: bold;
+  }
+
+  input[type="text"],
+  input[type="email"] {
+    width: 200px;
+    height: 30px;
+    padding: 5px;
+    font-size: 16px;
+    margin: 4px;
+  }
+</style>
