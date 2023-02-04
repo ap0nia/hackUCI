@@ -75,14 +75,18 @@ async function start() {
     /**
      * 1) get the user's email from the request body
      */
+    const email = req.body.email
+    console.log(email);
 
     /**
      * 2) write the user's email to a cookie
      */
+      res.cookie('email', email)
 
     /**
      * 3) send a response confirming their login, e.g. "Logged in as <email>"
      */
+    res.json(email)
   })
 
 
