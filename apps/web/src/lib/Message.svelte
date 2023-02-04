@@ -21,7 +21,7 @@
   <div id="messagebox11">
     <div id="messagebox1" class="{mine ? 'bg-green-300' : 'bg-blue-300'}">
       <div>
-        <h1>I am {name}</h1>
+        <h1 class="underline">{name}</h1>
         <p>{message}</p>
       </div>
     </div>
@@ -32,7 +32,7 @@
     <img id="profile" src="/whisper.jpeg" height="69" width="69" alt="" />
     <div id="messagebox2" class="{mine ? 'bg-green-300' : 'bg-blue-300'}">
       <div>
-        <h1>Someone else is {name}</h1>
+        <h1 class="underline">{name}</h1>
         <p>{message}</p>
       </div>
     </div>

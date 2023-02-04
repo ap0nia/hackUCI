@@ -4,7 +4,8 @@ import db from './db'
 
 function createWsRouter(router: expressWs.Router, wss: Server<WebSocket>) {
     router.ws('/chat', async function(ws, req) {
-        const user_id = req.cookies.userID || 1
+        const cookieUser = JSON.parse(req.cookies?.user || '{}')
+        const user_id = cookieUser.id || 1
         const session_id = 1
 
         const user = await db.user.findFirst({

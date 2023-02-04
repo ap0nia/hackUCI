@@ -1,5 +1,5 @@
 <div class="form-container">
-  <h1>Login to your account</h1>
+  <h1>Register for a new account</h1>
   <form method="post">
     <div id="imgcontainer">
       <img src="/favicon.png" alt="" />
