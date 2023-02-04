@@ -4,6 +4,9 @@
   "workspaces": [
     "apps/*"
   ],
+  "scripts": {
+    "prepare": "prisma generate"
+  },
   "devDependencies": {
     "prisma": "^4.9.0",
     "typescript": "^4.9.5"
