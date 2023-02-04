@@ -1,15 +1,14 @@
 <div id="main">
   <div id="maina" />
-
   <div id="mainb">
     <div id="top-section">
-      <dir> A session started by dean </dir>
+      <dir>A session started by dean</dir>
     </div>
     <div id="chat">
       <div id="chatcontent">
         <div id="chatinput">
-          <button class="_abl-" type="button"
-            ><div class="_abm0 _abm1">
+          <button class="_abl-" type="button">
+            <div class="_abm0 _abm1">
               <svg
                 aria-label="Emoji"
                 class="_ab6-"
@@ -24,13 +23,7 @@
             </div>
           </button>
           <form id="input" action="/sendmessage" method="post">
-            <textarea
-              placeholder="message"
-              name="userinput"
-              id="uinput"
-              cols="30"
-              rows="10"
-            />
+            <textarea placeholder="message" name="userinput" id="uinput" cols="30" rows="10" />
           </form>
         </div>
       </div>
@@ -46,6 +39,7 @@
     position: absolute;
     justify-content: right;
   }
+
   #maina {
     width: 300px;
     height: 900px;
@@ -57,6 +51,7 @@
     position: relative;
     right: 583px;
   }
+
   #mainb {
     height: 900px;
     border-width: 1px;
@@ -81,6 +76,7 @@
     height: 729px;
     width: 100%;
   }
+
   #chatcontent {
     height: 100%;
     overflow-x: hidden;
@@ -91,6 +87,7 @@
     justify-content: center;
     background-color: white;
   }
+
   #chatinput {
     height: 34px;
     border-style: solid;
@@ -106,11 +103,13 @@
     display: flex;
     justify-content: space-between;
   }
+
   #input {
     height: 100%;
     width: 90%;
     margin-right: 5px;
   }
+
   #chatinput button {
     border-style: hidden;
     background-color: white !important;
@@ -118,6 +117,7 @@
     left: 6px;
     height: 80%;
   }
+
   #chatinput textarea {
     height: 80%;
     width: 100%;
@@ -132,11 +132,13 @@
   ._abm0 {
     color: transparent !important;
   }
+
   @media screen and (max-width: 890px) {
     #main {
       left: 0%;
     }
   }
+
   @media screen and (min-width: 890px) {
     #main {
       right: 20%;

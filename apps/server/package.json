@@ -4,7 +4,8 @@
   "scripts": {
     "dev": "tsx watch index.ts",
     "build": "tsc",
-    "start": "tsx index.ts"
+    "start": "tsx index.ts",
+    "dev:ws": "tsx watch ws.ts"
   },
   "dependencies": {
     "@prisma/client": "^4.9.0",

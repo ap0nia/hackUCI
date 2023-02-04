@@ -1,11 +1,12 @@
-import express from 'express'
+import expressWs from 'express-ws';
 
-const router = express.Router()
-
-router.ws('/kebin', function(ws, req) {
-    ws.on('message', function(msg) {
-        ws.send(msg)
+function createWsRouter(router: expressWs.Router) {
+    router.ws('/chat', function(ws, _req) {
+        ws.on('message', function(msg) {
+            ws.send(msg)
+        });
     });
-});
+    return router
+}
 
-export default router
+export default createWsRouter

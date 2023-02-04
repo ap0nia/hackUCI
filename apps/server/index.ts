@@ -3,7 +3,9 @@ import { PrismaClient } from '@prisma/client'
 import bodyParser from 'body-parser'
 import cookieParser from 'cookie-parser'
 import expressWs from 'express-ws'
-import wsrouter from './ws'
+import createWsRouter from './ws'
+
+const router = express.Router()
 
 /**
  * db is the database connection; use it to get data from the database
@@ -14,12 +16,11 @@ async function start() {
   /**
    * Create a new express app
    */
-  const app = express()
-  expressWs(app)
+  const { app } = expressWs(express())
 
   app.use(bodyParser.json())
   app.use(cookieParser())
-  app.use(wsrouter);
+  app.use(createWsRouter(router))
 
   /**
    * '/' route will respond with "Hello World"
