@@ -1,0 +1,36 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "cockroachdb"
+  url      = env("DATABASE_URL")
+}
+
+model session {
+  id     BigInt @id @default(sequence())
+  status String @db.String(255)
+}
+
+model migration_internal_statements {
+  statement_order BigInt @id
+  statement_id    String @unique @db.Uuid
+  data            Json?
+
+  @@map("_migration_internal_statements")
+}
+
+model message {
+  id        BigInt @id @default(sequence())
+  userid    Int
+  sessionid String @db.String(255)
+  content   String @db.String(255)
+}
+
+model user {
+  id        BigInt @id @default(sequence())
+  email     String @db.String(255)
+  name      String @db.String(255)
+  role      String @db.String(255)
+  sessionid String @db.String(255)
+}
