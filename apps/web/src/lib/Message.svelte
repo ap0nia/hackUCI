@@ -22,15 +22,7 @@
     <div id="messagebox1" class="{mine ? 'bg-green-300' : 'bg-blue-300'}">
       <div>
         <h1>I am {name}</h1>
-        <p>
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Facere in,
-          hic molestias, sint corrupti amet dolores alias, commodi aliquid quae
-          nam! Nihil maiores quasi vitae quis animi mollitia, excepturi impedit.
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Est, voluptas
-          quod. Neque temporibus veritatis natus culpa consequuntur unde, ullam
-          dolores suscipit quis quasi cum voluptatem ea ex provident velit
-          commodi. {message}
-        </p>
+        <p>{message}</p>
       </div>
     </div>
     <img src="/danger.jpeg" height="69" width="69" alt="" class="rounded-full" />
@@ -41,12 +33,7 @@
     <div id="messagebox2" class="{mine ? 'bg-green-300' : 'bg-blue-300'}">
       <div>
         <h1>Someone else is {name}</h1>
-        <p>
-          Someone else's message is Lorem, ipsum dolor sit amet consectetur
-          adipisicing elit. Culpa ducimus in a unde repudiandae cumque ratione
-          officia doloribus beatae odit nostrum nesciunt, ad fuga. Sequi
-          temporibus ad quam est nam.{message}
-        </p>
+        <p>{message}</p>
       </div>
     </div>
   </div>
