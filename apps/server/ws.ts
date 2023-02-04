@@ -1,22 +1,24 @@
-import { PrismaClient } from '@prisma/client';
 import expressWs from 'express-ws';
-import { Server, WebSocket } from 'ws'
+import { Server, WebSocket, OPEN } from 'ws'
 import db from './db'
-//import cookieParser from 'cookie-parser'
 
 function createWsRouter(router: expressWs.Router, wss: Server<WebSocket>) {
     router.ws('/chat', function(ws, req) {
-        wss.on('connection', function connection(ws) {
+        wss.on('connection', function connection(_ws, _req) {
+            console.log('user connected')
         });
+
         /**
          * 1) get the userID and sessionID from cookies
          */
+
         /**
          * on every message sent...
          */
         ws.on('message', async function(msg) {
             const user_id = req.cookies.userID || 1
-            const session_id = req.cookies.session_ID || 43
+            const session_id = 1
+
             /**
              * check the userID and sessionID and save the message to the database
              */
@@ -30,8 +32,8 @@ function createWsRouter(router: expressWs.Router, wss: Server<WebSocket>) {
 
             console.log(newMessage)
 
-            wss.clients.forEach((client, b, c) => {
-                if (client != ws && client.readyState == WebSocket.OPEN) {
+            wss.clients.forEach((client) => {
+                if (client.readyState == OPEN) {
                     client.send(msg)
                 }
             });
