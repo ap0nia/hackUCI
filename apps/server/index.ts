@@ -76,17 +76,24 @@ async function start() {
      * 1) get the user's email from the request body
      */
     const email = req.body.email
-    console.log(email);
 
     /**
-     * 2) write the user's email to a cookie
+     * 2) find the user in the database
      */
-      res.cookie('email', email)
+      const user = await db.user.findFirst({
+        where: {
+          email: email
+        }
+      })
+    /**
+     * 3) set the "user" cookie with the value of the user
+     */
+      res.cookie('user', user)
 
     /**
-     * 3) send a response confirming their login, e.g. "Logged in as <email>"
+     * 4) send a response confirming their login, e.g. "Logged in as <user.email>"
      */
-    res.json(email)
+    res.json(user)
   })
 
 
