@@ -7,6 +7,9 @@ export default {
     vitePreprocess()
   ],
   kit: {
-    adapter: adapter()
+    adapter: adapter(),
+    env: {
+      dir: '../../'
+    }
   }
 }

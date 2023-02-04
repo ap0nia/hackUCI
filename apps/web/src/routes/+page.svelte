@@ -2,6 +2,7 @@
   import { onMount } from 'svelte'
   import Message from '$lib/Message.svelte'
   import { page } from '$app/stores'
+  import { PUBLIC_WS } from '$env/static/public'
 
   let socket: WebSocket
 
@@ -22,7 +23,7 @@
   let message = ''
 
   	onMount(() => {
-      socket = new WebSocket('ws://localhost:3000/chat');
+      socket = new WebSocket(PUBLIC_WS);
 
       // Connection opened
       socket.addEventListener('open', function (event) {
