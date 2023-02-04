@@ -88,12 +88,12 @@ async function start() {
     /**
      * 3) set the "user" cookie with the value of the user
      */
-      res.cookie('email', email)
+      res.cookie('user', user)
 
     /**
      * 4) send a response confirming their login, e.g. "Logged in as <user.email>"
      */
-    res.json(email)
+    res.json(user)
   })
 
 
