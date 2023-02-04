@@ -75,14 +75,18 @@ async function start() {
     /**
      * 1) get the user's email from the request body
      */
+    const email = req.body.email
+    console.log(email);
 
     /**
      * 2) write the user's email to a cookie
      */
+      res.cookie('email', email)
 
     /**
      * 3) send a response confirming their login, e.g. "Logged in as <email>"
      */
+    res.json(email)
   })
 
 
@@ -93,14 +97,21 @@ async function start() {
     /**
      * 1) get the session ID from the request body
      */
+    const session_ID = req.body.session_ID
 
     /**
      * 2) lookup the session in the database
      */
+    const sessions = await db.session.findFirst({
+      where: {
+        id: session_ID 
+      }
+    })
 
     /**
      * 3) return the session data
      */
+    res.json(sessions)
   })
 
   /**
