@@ -40,7 +40,6 @@
 <style>
   #message {
     border-radius: 9999px;
-    overflow: hidden;
     margin-right: auto;
   }
 </style>
