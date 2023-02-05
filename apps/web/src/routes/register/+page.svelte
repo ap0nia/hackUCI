@@ -48,7 +48,7 @@
     <p class="my-4">Already have an account? <a href="/login" class="text-blue-700 hover:text-green-600">Login</a></p>
     <label class="">
       <p class="bg-violet-400 p-2 rounded rounded-b-none font-semibold">Email</p>
-      <input type="text" class="border border-1 p-2 w-full rounded rounded-t-none" bind:value={email}>
+      <input name="email" type="text" class="border border-1 p-2 w-full rounded rounded-t-none" bind:value={email}>
     </label>
     <div class="w-full flex justify-center items-center my-4">
       <button class="bg-red-400 px-8 py-4 rounded-xl">

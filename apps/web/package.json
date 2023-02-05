@@ -9,7 +9,7 @@
     "prepare": "svelte-kit sync",
     "dev": "vite",
     "build": "vite build",
-    "start": "node build"
+    "start": "ORIGIN=https://abrasive-shake-production.up.railway.app node build"
   },
   "devDependencies": {
     "@sveltejs/adapter-node": "^1.1.6",
