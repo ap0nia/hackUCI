@@ -1,3 +1,3 @@
-<h1 class="bg-red-700 color-salmon-500">
+<h1>
   Hello, World
 </h1>

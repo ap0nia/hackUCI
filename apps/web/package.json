@@ -6,7 +6,9 @@
   "private": true,
   "license": "UNLICENSED",
   "scripts": {
-    "dev": "vite"
+    "dev": "vite",
+    "build": "vite build",
+    "start": "node build"
   },
   "devDependencies": {
     "@sveltejs/adapter-node": "^1.1.6",

@@ -14,7 +14,7 @@ interface SessionWs extends WebSocket {
 async function start() {
     const app = express();
 
-    app.use(cors())
+    app.use(cors({ credentials: true, origin: true }))
     app.use(cookieParser())
     app.use(bodyParser.json())
 
@@ -36,6 +36,22 @@ async function start() {
         //     db.session.deleteMany(),
         //     db.user.deleteMany(),
         // ])
+    })
+
+    app.post('/api/login', async (req, res) => {
+        const defaultUser = {
+            id: 123,
+            email: 'asdf',
+        }
+
+        const user = await db.user.findFirst({
+            where: {
+                email: req.body.email
+            }
+        })
+
+        res.cookie('user', user)
+        res.json({ user })
     })
 
     server.on('upgrade', (request, socket, head) => {
