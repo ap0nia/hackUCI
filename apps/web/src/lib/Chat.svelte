@@ -3,6 +3,7 @@
   import CloseIcon from '@iconify/icons-mdi/arrow-up-thin'
   import { page } from '$app/stores'
   import { onMount } from 'svelte'
+  import Swal from 'sweetalert2'
 
   import { socket } from '$lib/socket'
 
@@ -13,46 +14,41 @@
     mine?: boolean
   }
 
-  interface User {
-    user_id: number
-    user: string
-  }
+  onMount(() => {
+    socket.addEventListener("open", function (event) {
+        console.log(event);
+        console.log("It's open");
+      });
 
-onMount(() => {
-  socket.addEventListener("open", function (event) {
-      console.log(event);
-      console.log("It's open");
+      socket.addEventListener("message", function (event) {
+        console.log('data', event.data)
+        try {
+        const data = JSON.parse(event.data);
+        if (data.message) {
+          const newMessage: Message = {
+            user_id: data.user?.id || 1,
+            content: data?.message?.content || '',
+            mine: $page.data.user?.id === data?.user?.id || false,
+            user: data.user?.name || 'anonymous',
+          };
+          messages = [...messages, newMessage];
+          message = ''
+        }
+        else if (data.users) {
+          users = data.users
+          console.log(data.users)
+        }
+        else if (data.stop) {
+          Swal.fire('AMOGUS')
+        }
+        } catch {
+          console.log('error')
+        }
+      })
     });
 
-    socket.addEventListener("message", function (event) {
-      console.log('data', event.data)
-      try {
-      const data = JSON.parse(event.data);
-      const newMessage: Message = {
-        user_id: data.user?.id || 1,
-        content: data?.message?.content || '',
-        mine: $page.data.user?.id === data?.user?.id || false,
-        user: data.user?.name || 'anonymous',
-      };
-      messages = [...messages, newMessage];
-      message = ''
-      } catch {
-        console.log('error')
-      }
-    })
-  });
 
-
-  export let users: User[] = [
-    {
-      user_id: 13,
-      user: 'aponia'
-    },
-    {
-      user_id: 1,
-      user: 'VillV'
-    }
-  ]
+  export let users: string[] = []
 
   export let messages: Message[] = [
     {
@@ -76,7 +72,20 @@ onMount(() => {
     }
     input.focus()
   }
+
+  function stop() {
+    if (socket.readyState <= 1) {
+      socket.send(`STOP:`);
+    }
+    input.focus()
+  }
 </script>
+
+<div class="p-4 w-full flex justify-center">
+  <button class="bg-red-400 rounded px-8 py-2" on:click={stop}>
+  STOP
+  </button>
+</div>
 
 <div class="flex">
   <div class="w-52 border border-purple-400 border-4 rounded-xl">
@@ -86,7 +95,7 @@ onMount(() => {
           <img id="profile" src="/whisper.jpeg" height="32" width="32" alt="" class="w-full h-full"/>
         </div>
         <div class="flex flex-col justify-center">
-          <h1 class="font-semibold text-xl">{user.user}</h1>
+          <h1 class="font-semibold text-xl">{user}</h1>
           <div class="flex items-center gap-1">
             <div class="rounded-full bg-green-300 w-2 h-2" />
             <p class="text-sky-700">Online</p>

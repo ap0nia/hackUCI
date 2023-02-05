@@ -8,7 +8,7 @@
 <header class="bg-gradient-to-r from-slate-400 to-violet-200 h-24 flex gap-8 p-4">
   <a href="/" class="flex justify-center items-center gap-4">
     <img src="/favicon.png" height="40" width="40" alt="">
-    <h1 class="text-purple-700 text-5xl font-bold whitespace-nowrap">Bossus Amogus</h1>
+    <h1 class="text-purple-700 text-5xl font-bold whitespace-nowrap">Undercover Boss</h1>
   </a>
   <nav class="flex flex-auto justify-end items-center">
     <ul class="flex gap-4">
@@ -36,10 +36,5 @@
   <slot />
 </main>
 
-<header class="bg-sky-400 h-20">
-  <nav>
-    <ul>
-      <li>3</li>
-    </ul>
-  </nav>
-</header>
+<footer class="bg-sky-400 h-20">
+</footer>

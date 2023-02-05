@@ -1,5 +1,6 @@
 <script lang="ts">
   import { goto } from '$app/navigation'
+  import { PUBLIC_API } from '$env/static/public'
 
   let email = ''
   let error = ''
@@ -18,7 +19,7 @@
   }
 
   async function submit() {
-    const res = await fetch('http://localhost:3000/api/login', {
+    const res = await fetch(`${PUBLIC_API}/login`, {
       credentials: 'include',
       method: 'POST',
       headers: {
@@ -50,9 +51,7 @@
       <input type="text" class="border border-1 p-2 w-full rounded rounded-t-none" bind:value={email}>
     </label>
     <div class="w-full flex justify-center items-center my-4">
-      <button class="bg-red-400 px-8 py-4 rounded-xl">
-        Submit
-      </button>
+      <button class="bg-red-400 px-8 py-4 rounded-xl">Submit</button>
     </div>
   </fieldset>
 </form>

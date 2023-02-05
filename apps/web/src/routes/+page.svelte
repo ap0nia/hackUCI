@@ -2,11 +2,12 @@
   import { page } from '$app/stores'
   import { goto } from '$app/navigation'
   import Chat from '$lib/Chat.svelte'
+  import { PUBLIC_API } from '$env/static/public'
 
   let session = ''
 
   async function submit() {
-    const res = await fetch('http://localhost:3000/api/join', {
+    const res = await fetch(`${PUBLIC_API}`, {
       credentials: 'include',
       method: 'POST',
       headers: {

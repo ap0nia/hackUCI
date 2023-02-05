@@ -1,5 +1,6 @@
 <script lang="ts">
   import { goto } from '$app/navigation'
+  import { PUBLIC_API } from '$env/static/public'
 
   let email = ''
   let error = ''
@@ -18,7 +19,7 @@
   }
 
   async function submit() {
-    const res = await fetch('http://localhost:3000/api/register', {
+    const res = await fetch(`${PUBLIC_API}/register`, {
       credentials: 'include',
       method: 'POST',
       headers: {
