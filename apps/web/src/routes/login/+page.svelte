@@ -4,7 +4,7 @@
   let email = "";
 
   function submit() {
-    fetch(`${PUBLIC_API}/register`, {
+    fetch(`${PUBLIC_API}/login`, {
       method: "POST",
       credentials: 'include',
       headers: {
