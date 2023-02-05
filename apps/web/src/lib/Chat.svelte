@@ -2,17 +2,41 @@
   import Icon from '@iconify/svelte'
   import CloseIcon from '@iconify/icons-mdi/arrow-up-thin'
   import { page } from '$app/stores'
+  import { onMount } from 'svelte'
+
+  import { socket } from '$lib/socket'
+
+  $: console.log(socket)
 
   interface Message {
     user_id: number
     user: string
     content: string
+    mine?: boolean
   }
 
   interface User {
     user_id: number
     user: string
   }
+
+onMount(() => {
+  socket.addEventListener("open", function (event) {
+    console.log(event);
+    console.log("It's open");
+  });
+})
+// socket.addEventListener("message", function (event) {
+//   const data = JSON.parse(event.data);
+//   const newMessage: Message = {
+//     user_id: data.user?.id,
+//     content: data.message.content,
+//     mine: $page.data.user?.id === data.user?.id,
+//     user: data.user?.name,
+//   };
+//   messages = [...messages, newMessage];
+// });
+
 
   export let users: User[] = [
     {
@@ -42,6 +66,9 @@
   let input: HTMLInputElement
 
   function submit() {
+    if (socket.readyState <= 1) {
+      socket.send(`MESSAGE: ${message}`);
+    }
     const newMessage: Message = {
       user_id: 13,
       user: 'aponia',

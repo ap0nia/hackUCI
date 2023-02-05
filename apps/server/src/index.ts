@@ -52,24 +52,60 @@ async function start() {
     })
 
     app.post('/api/login', async (req, res) => {
+        if (!req.body.email) {
+            return res.json({})
+        }
         const user = await db.user.findFirst({
             where: {
                 email: req.body.email
             }
         })
-
-        res.cookie('user', user)
+        res.cookie('user', user, { maxAge: 1000 * 60 * 60 * 24 * 7 })
         res.json({ user })
     })
 
     app.post('/api/register', async (req, res) => {
+        if (!req.body.email) {
+            return res.json({})
+        }
+        const user = await db.user.create({
+            data: {
+                email: req.body.email
+            }
+        })
+        res.cookie('user', user, { maxAge: 1000 * 60 * 60 * 24 * 7 })
+        res.json({ user })
+    })
+
+    app.post('/api/logout', async (req, res) => {
         try {
-            const user = await db.user.create({
-                data: {
+            const user = await db.user.update({
+                where: {
                     email: req.body.email
+                },
+                data: {
+                    session_id: null,
                 }
             })
-            res.cookie('user', user)
+            res.cookie('user', '', { maxAge: 0 })
+            res.json({ user })
+        }
+        catch {
+            res.json({})
+        }
+    })
+
+    app.post('/api/join', async (req, res) => {
+        try {
+            const user = await db.user.update({
+                where: {
+                    email: req.cookies?.user?.email
+                },
+                data: {
+                    session_id: req.body.session
+                }
+            })
+            res.cookie('user', user, { maxAge: 1000 * 60 * 60 * 24 * 7 })
             res.json({ user })
         }
         catch {
@@ -89,13 +125,34 @@ async function start() {
     });
 
     wss.on('connection', (ws: SessionWs, req) => {
-        let cookies: any = {}
-        cookieParser()(req as any, cookies as any, () => {})
-        ws.session_id = cookies.session_id || 'global'
+        cookieParser()(req as any, {} as any, () => {})
+        ws.session_id = (req as any).cookies.session_id || 'global'
 
-        ws.on('message', (message: string) => {
+        ws.on('message', async (msg: string) => {
+            const msgString = msg.toString()
+
+            // it's a message
+            if (msgString.startsWith('MESSAGE:')) {
+                console.log(msgString.replace('MESSAGE: ', ''))
+            }
+            else {
+                console.log('normal', msgString)
+            }
+            // const message = await db.message.create({
+            //   data: {
+            //       userid: user_id,
+            //       sessionid: session_id,
+            //       content: msg.toString(),
+            //   },
+            //});
             wss.clients.forEach((client) => {
-                client.send(`Session: ${ws.session_id}, new message: ${message}`);
+                const c = client as SessionWs
+                if (c.session_id == ws.session_id) {
+                    client.send(`Session: ${ws.session_id}, new message: ${msg}`);
+                }
+                else {
+                    client.send(`Session: ${ws.session_id}, new message: ${msg}`);
+                }
             })
         });
 
