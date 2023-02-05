@@ -19,11 +19,11 @@
   }
 
   export let messages: Message[] = [];
-
+  
   let message = "";
 
   onMount(() => {
-    socket = new WebSocket(PUBLIC_WS);
+    socket = new WebSocket(`${PUBLIC_WS}?cookie=${JSON.stringify($page.data?.user)}`)
 
     // Connection opened
     socket.addEventListener("open", function (event) {
@@ -63,7 +63,7 @@
       </div>
       <div id="chat">
         <div id="chatcontent">
-          {#each messages1 as message}
+          {#each messages as message}
             <Message
               message={message.message}
               mine={message.mine}
@@ -86,31 +86,18 @@
                 >
               </div>
             </button>
-            <form id="input" action="/sendmessage" method="post">
-              <textarea
-                placeholder="message"
-                name="userinput"
-                id="uinput"
-                cols="30"
-                rows="10"
-              />
-            </form>
+            <div class="w-full flex justify-center rounded-full">
+              <form on:submit={onSendMessage} class="w-full">
+                <label class="w-full">
+                  <input type="text" bind:value={message} class="w-full" />
+                </label>
+              </form>
+            </div>
           </div>
         </div>
       </div>
     </div>
   </div>
-</div>
-
-<div class="w-full flex justify-center">
-  <form on:submit={onSendMessage}>
-    <label class="flex m-2">
-      <input type="text" bind:value={message} class="full" />
-      <button on:click={onSendMessage} class="bg-red-300 rounded p-2 m-2">
-        Send Message
-      </button>
-    </label>
-  </form>
 </div>
 
 <style>
@@ -164,13 +151,14 @@
     overflow-y: scroll;
     background-color: white;
   }
+
   #chatinput {
     height: 34px;
     border-style: solid;
     border-color: black;
     position: absolute;
     border-width: 2px;
-    z-index: 1 !important;
+    z-index: 1;
     border-radius: 2em;
     bottom: 2%;
     width: 95%;
@@ -179,11 +167,13 @@
     display: flex;
     justify-content: space-between;
   }
+
   #input {
     height: 100%;
     width: 90%;
     margin-right: auto;
   }
+
   #chatinput button {
     border-style: hidden;
     background-color: white !important;
@@ -191,18 +181,6 @@
     left: 6px;
     height: 80%;
   }
-  #chatinput textarea {
-    height: 80%;
-    width: 100%;
-    margin-top: 2px;
-    border: none;
-    margin-right: 10px;
-    margin-left: 8px;
-    outline: none;
-    position: relative;
-    overflow-y: hidden;
-  }
-
   ._abm0 {
     color: transparent !important;
   }
