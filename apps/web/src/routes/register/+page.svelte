@@ -42,7 +42,7 @@
   </div>
 {/if}
 
-<form on:submit|preventDefault={submit} class="p-4 max-w-2xl mx-auto">
+<form class="p-4 max-w-2xl mx-auto" method="POST">
   <fieldset class="p-4 border border-4 border-amber-400">
     <legend class="p-4 bg-green-400 rounded-xl font-bold">Register</legend>
     <p class="my-4">Already have an account? <a href="/login" class="text-blue-700 hover:text-green-600">Login</a></p>
