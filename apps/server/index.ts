@@ -103,7 +103,8 @@ async function start() {
      * 3) set the "user" cookie with the value of the user
      */
       res.cookie('user', user, {
-        path: '/'
+        path: '/',
+        maxAge: 1000 * 60 * 60 * 24 * 7,
       })
 
     /**
@@ -136,7 +137,8 @@ async function start() {
      * 3) set the "user" cookie with the value of the user
      */
       res.cookie('user', user, {
-        path: '/'
+        path: '/',
+        maxAge: 1000 * 60 * 60 * 24 * 7
       })
 
     /**
