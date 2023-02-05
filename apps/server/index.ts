@@ -106,6 +106,40 @@ async function start() {
     res.json(user)
   })
 
+  app.post('/register', async (req, res) => {
+    console.log(req.body.email)
+
+    /**
+     * 1) get the user's email from the request body
+     */
+    const email = req.body.email
+
+    /**
+     * 2) find the user in the database
+     */
+      const user = await db.user.create({
+        data: {
+          role: 'user',
+          sessionid: 123,
+          name: email,
+          email
+        }
+      })
+
+    /**
+     * 3) set the "user" cookie with the value of the user
+     */
+      res.cookie('user', user, {
+        path: '/'
+      })
+
+    /**
+     * 4) send a response confirming their login, e.g. "Logged in as <user.email>"
+     */
+    res.json(user)
+  })
+
+
 
   /**
    * TODO Thang: given a POST request to join a session, return the session data

@@ -26,7 +26,7 @@
     </div>
     <div class="form-group">
       <label for="email">Email:</label>
-      <input placeholder="email" type="text" id="email" name="email" />
+      <input placeholder="email" type="text" id="email" name="email" bind:value={email} />
     </div>
     <div class="flex justify-center">
       <button class="bg-green-400 rounded p-4 px-8 m-2">Submit</button>
