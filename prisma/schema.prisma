@@ -1,0 +1,28 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "cockroachdb"
+  url      = env("DATABASE_URL")
+}
+
+model session {
+  id     Int    @id @default(sequence())
+  status String
+}
+
+model message {
+  id          Int    @id @default(sequence())
+  user_id     Int
+  session_id  Int
+  content     String
+}
+
+model user {
+  id          Int    @id @default(sequence())
+  email       String
+  name        String?
+  role        String?
+  session_id  Int?
+}
