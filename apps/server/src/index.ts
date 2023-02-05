@@ -129,10 +129,10 @@ async function start() {
     });
 
     wss.on('connection', (ws: SessionWs, req) => {
-        cookieParser()(req as any, {} as any, () => {})
-        ws.user = (req as any).cookies.user || {}
-
-        console.log('session', ws.user)
+        // cookieParser()(req as any, {} as any, () => {})
+        // ws.user = (req as any).cookies.user || {}
+        const c = new URLSearchParams(req.url?.split('?')[1]).get('cookie')
+        ws.user = JSON.parse(c || '')
 
         let users = [...wss.clients].map(c => (c as SessionWs).user?.email)
 

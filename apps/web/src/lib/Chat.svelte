@@ -4,8 +4,11 @@
   import { page } from '$app/stores'
   import { onMount } from 'svelte'
   import Swal from 'sweetalert2'
+import { PUBLIC_WS } from '$env/static/public'
+import { browser } from '$app/environment'
 
-  import { socket } from '$lib/socket'
+let socket: WebSocket
+
 
   interface Message {
     user_id: number
@@ -15,6 +18,7 @@
   }
 
   onMount(() => {
+    socket = browser ? new WebSocket(`${PUBLIC_WS}?cookie=${JSON.stringify($page.data.user)}`) : null
     socket.addEventListener("open", function (event) {
         console.log(event);
         console.log("It's open");
@@ -50,18 +54,7 @@
 
   export let users: string[] = []
 
-  export let messages: Message[] = [
-    {
-      user_id: 13,
-      user: 'aponia',
-      content: 'NO gamer words'
-    },
-    {
-      user_id: 1,
-      user: 'VillV',
-      content: 'YES gamer words'
-    }
-  ]
+  export let messages: Message[] = []
 
   let message = ''
   let input: HTMLInputElement
