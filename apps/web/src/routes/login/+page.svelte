@@ -1,6 +1,26 @@
+<script lang="ts">
+  import { PUBLIC_API } from '$env/static/public'
+
+  let email = "";
+
+  function post() {
+    fetch(`${PUBLIC_API}/login`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ email }),
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        console.log(data);
+      });
+  }
+</script>
+
 <div class="form-container">
   <h1>Login to your account</h1>
-  <form method="post">
+  <form on:submit={post}>
     <div id="imgcontainer">
       <img src="/favicon.png" alt="" />
     </div>

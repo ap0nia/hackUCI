@@ -8,6 +8,8 @@ function createWsRouter(router: expressWs.Router, wss: Server<WebSocket>) {
         const user_id = cookieUser.id || 1
         const session_id = 1
 
+        console.log({ cookieUser })
+
         const user = await db.user.findFirst({
             where: {
                 id: user_id,
