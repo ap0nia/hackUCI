@@ -4,6 +4,7 @@ import cookieParser from 'cookie-parser'
 import expressWs from 'express-ws'
 import createWsRouter from './ws'
 import db from './db'
+import cors from 'cors'
 
 const router = express.Router()
 
@@ -12,6 +13,11 @@ async function start() {
    * Create a new express app
    */
   const { app, getWss } = expressWs(express())
+
+  app.use(cors({
+    origin: true,
+    credentials: true
+  }));
 
   app.use(bodyParser.json())
   app.use(cookieParser())
@@ -72,6 +78,7 @@ async function start() {
    * TODO Jasmin: given a POST request to login, write the user's email to a cookie
    */
   app.post('/login', async (req, res) => {
+    console.log('hihi')
     /**
      * 1) get the user's email from the request body
      */
