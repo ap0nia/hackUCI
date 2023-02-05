@@ -2,6 +2,7 @@
   "name": "@apps/web",
   "version": "0.1.0",
   "type": "module",
+  "license": "UNLICENSED",
   "scripts": {
     "prepare": "svelte-kit sync",
     "dev": "vite",
