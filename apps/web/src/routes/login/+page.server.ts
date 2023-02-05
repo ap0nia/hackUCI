@@ -1,5 +1,6 @@
 import type { Actions } from './$types'
 import db from '$lib/db'
+import { redirect } from '@sveltejs/kit'
 
 export const actions: Actions = {
   async default({ request, cookies }) {
@@ -12,6 +13,6 @@ export const actions: Actions = {
 
     cookies.set('user', JSON.stringify(user))
 
-    return user
+    throw redirect(307, '/')
   }
 }
