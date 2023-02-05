@@ -33,15 +33,19 @@
 
       // Listen for messages
       socket.addEventListener('message', function (event) {
-        const data = JSON.parse(event.data);
-        console.log(data)
-        console.log($page.data)
-        const newMessage = {
-          message: data.message.content,
-          mine: $page.data.user?.id === data.user?.id,
-          name: data.user?.name
+        if (event.data.startsWith('STOP')) {
         }
-        messages = [...messages, newMessage]
+        else {
+          const data = JSON.parse(event.data);
+          console.log(data)
+          console.log($page.data)
+          const newMessage = {
+            message: data.message.content,
+            mine: $page.data.user?.id === data.user?.id,
+            name: data.user?.name
+          }
+          messages = [...messages, newMessage]
+        }
       });
     })
 	

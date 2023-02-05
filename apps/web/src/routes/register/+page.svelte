@@ -21,7 +21,7 @@
 
 <div class="form-container">
   <h1>Register for a new account</h1>
-  <form on:submit={submit}>
+  <form method="POST">
     <div id="imgcontainer">
       <img src="/favicon.png" alt="" />
     </div>
