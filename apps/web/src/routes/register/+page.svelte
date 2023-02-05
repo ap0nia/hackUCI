@@ -3,9 +3,10 @@
 
   let email = "";
 
-  function post() {
+  function submit() {
     fetch(`${PUBLIC_API}/register`, {
       method: "POST",
+      credentials: 'include',
       headers: {
         "Content-Type": "application/json",
       },
@@ -20,7 +21,7 @@
 
 <div class="form-container">
   <h1>Register for a new account</h1>
-  <form on:submit={post}>
+  <form on:submit={submit}>
     <div id="imgcontainer">
       <img src="/favicon.png" alt="" />
     </div>
