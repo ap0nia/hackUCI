@@ -3,7 +3,9 @@
   import { page } from '$app/stores'
 </script>
 
-<header class="bg-gradient-to-r from-slate-400 to-violet-200 h-20 flex gap-8 p-4">
+{JSON.stringify($page.data.user)}
+
+<header class="bg-gradient-to-r from-slate-400 to-violet-200 h-24 flex gap-8 p-4">
   <a href="/" class="flex justify-center items-center gap-4">
     <img src="/favicon.png" height="40" width="40" alt="">
     <h1 class="text-purple-700 text-5xl font-bold whitespace-nowrap">Bossus Amogus</h1>
@@ -21,8 +23,11 @@
     </ul>
   </nav>
   {#if $page.data.user}
-    <div class="w-15 flex">
-      <img src="porridge.jpeg" alt="" height="40" width="40" class="h-full w-full rounded-full">
+    <div>
+      <div class="w-12 h-12">
+        <img src="porridge.jpeg" alt="" height="32" width="32" class="h-full w-full rounded-full">
+      </div>
+      <p class="w-full">{$page.data.user.email}</p>
     </div>
   {/if}
 </header>

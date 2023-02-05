@@ -146,6 +146,32 @@
   resolved "https://registry.yarnpkg.com/@esbuild/win32-x64/-/win32-x64-0.16.17.tgz#c5a1a4bfe1b57f0c3e61b29883525c6da3e5c091"
   integrity sha512-y+EHuSchhL7FjHgvQL/0fnnFmO4T1bhvWANX6gcnqTjtnKWbTvUMCpGnv2+t+31d7RzyEAYAd4u2fnIhHL6N/Q==
 
+"@iconify/icons-material-symbols@^1.2.26":
+  version "1.2.26"
+  resolved "https://registry.yarnpkg.com/@iconify/icons-material-symbols/-/icons-material-symbols-1.2.26.tgz#782756968fa2bd737e959313c595095569aff3d9"
+  integrity sha512-ydWG5B6FqihrYc3kqDnLJPdisxN3ZDC7HVBgeH4VPqysiHN4dDb0MMoaOnR1HN6iwVEikcIPFE2pAFgUOPcyTg==
+  dependencies:
+    "@iconify/types" "*"
+
+"@iconify/icons-mdi@^1.2.40":
+  version "1.2.40"
+  resolved "https://registry.yarnpkg.com/@iconify/icons-mdi/-/icons-mdi-1.2.40.tgz#d493b54a0b0d2d8482271708e1fecb475b52289b"
+  integrity sha512-w2hOEtwspOZxFwK0lDEiSzMD00JUrwBHRGbO4evS0YRnceOS+KT62UUZgxgpyp8YGRsHp0DhrSd2jzuMG2iXEQ==
+  dependencies:
+    "@iconify/types" "*"
+
+"@iconify/svelte@^3.1.0":
+  version "3.1.0"
+  resolved "https://registry.yarnpkg.com/@iconify/svelte/-/svelte-3.1.0.tgz#a295d95b2fefec437b296c25a8059a620c95c029"
+  integrity sha512-G1w1dcO7eiD+JmQJNwNW4qnAn86oQxKLe1P/iAPjJ0qYYuF7Pb60TPrlcj4+2gu4SXe3a0Jrv++8YmceG+gX/g==
+  dependencies:
+    "@iconify/types" "^2.0.0"
+
+"@iconify/types@*", "@iconify/types@^2.0.0":
+  version "2.0.0"
+  resolved "https://registry.yarnpkg.com/@iconify/types/-/types-2.0.0.tgz#ab0e9ea681d6c8a1214f30cd741fe3a20cc57f57"
+  integrity sha512-+wluvCrRhXrhyOmRDJ3q8mux9JkKy5SJ/v8ol2tu4FVjyYvtEzkc/3pK15ET6RKg4b4w4BmTk1+gsCUhf21Ykg==
+
 "@jridgewell/sourcemap-codec@^1.4.13":
   version "1.4.14"
   resolved "https://registry.yarnpkg.com/@jridgewell/sourcemap-codec/-/sourcemap-codec-1.4.14.tgz#add4c98d341472a289190b424efbdb096991bb24"
