@@ -8,7 +8,7 @@
     "dev": "vite",
     "build": "vite build",
     "preview": "vite preview",
-    "start": "ORIGIN='https://hackuci-production.up.railway.app/' vite --host"
+    "start": "ORIGIN='https://hackuci-production.up.railway.app/' node build"
   },
   "devDependencies": {
     "@sveltejs/adapter-node": "^1.1.6",
