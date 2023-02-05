@@ -78,7 +78,8 @@ async function start() {
    * TODO Jasmin: given a POST request to login, write the user's email to a cookie
    */
   app.post('/login', async (req, res) => {
-    console.log('hihi')
+    console.log(req.body.email)
+
     /**
      * 1) get the user's email from the request body
      */
@@ -95,7 +96,9 @@ async function start() {
     /**
      * 3) set the "user" cookie with the value of the user
      */
-      res.cookie('user', user)
+      res.cookie('user', user, {
+        path: '/'
+      })
 
     /**
      * 4) send a response confirming their login, e.g. "Logged in as <user.email>"
