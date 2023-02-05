@@ -21,7 +21,7 @@ model message {
 
 model user {
   id          Int    @id @default(sequence())
-  email       String
+  email       String @unique
   name        String?
   role        String?
   session_id  String?

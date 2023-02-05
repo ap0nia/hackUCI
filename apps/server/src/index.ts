@@ -31,19 +31,27 @@ async function start() {
 
         res.json({ users, messages, sessions })
 
-        // db.$transaction([
-        //     db.message.deleteMany(),
-        //     db.session.deleteMany(),
-        //     db.user.deleteMany(),
-        // ])
+    })
+
+    app.get('/api/info', async (req, res) => {
+        const [messages, sessions, users ] = await db.$transaction([
+            db.message.findMany(),
+            db.session.findMany(),
+            db.user.findMany(),
+        ])
+        res.json({ messages, sessions, users })
+    })
+
+    app.get('/api/reset', async (req, res) => {
+        const [messages, sessions, users ] = await db.$transaction([
+            db.message.deleteMany(),
+            db.session.deleteMany(),
+            db.user.deleteMany(),
+        ])
+        res.json({ messages, sessions, users })
     })
 
     app.post('/api/login', async (req, res) => {
-        const defaultUser = {
-            id: 123,
-            email: 'asdf',
-        }
-
         const user = await db.user.findFirst({
             where: {
                 email: req.body.email
@@ -52,6 +60,21 @@ async function start() {
 
         res.cookie('user', user)
         res.json({ user })
+    })
+
+    app.post('/api/register', async (req, res) => {
+        try {
+            const user = await db.user.create({
+                data: {
+                    email: req.body.email
+                }
+            })
+            res.cookie('user', user)
+            res.json({ user })
+        }
+        catch {
+            res.json({})
+        }
     })
 
     server.on('upgrade', (request, socket, head) => {

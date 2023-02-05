@@ -21,6 +21,9 @@
     const res = await fetch('http://localhost:3000/api/register', {
       credentials: 'include',
       method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
       body: JSON.stringify({
         email
       })
@@ -40,14 +43,14 @@
 
 <form on:submit|preventDefault={submit} class="p-4 max-w-2xl mx-auto">
   <fieldset class="p-4 border border-4 border-amber-400">
-    <legend class="p-4 bg-green-400 rounded-xl font-bold">Login to an existing account</legend>
-    <span>Don't have an account? <a href="/register">Register</a></span>
+    <legend class="p-4 bg-green-400 rounded-xl font-bold">Register</legend>
+    <p class="my-4">Already have an account? <a href="/login" class="text-blue-700 hover:text-green-600">Login</a></p>
     <label class="">
       <p class="bg-violet-400 p-2 rounded rounded-b-none font-semibold">Email</p>
       <input type="text" class="border border-1 p-2 w-full rounded rounded-t-none" bind:value={email}>
     </label>
     <div class="w-full flex justify-center items-center my-4">
-      <button class="bg-red-400 px-8 py-4 rounded-xl" on:click={submit}>
+      <button class="bg-red-400 px-8 py-4 rounded-xl">
         Submit
       </button>
     </div>
