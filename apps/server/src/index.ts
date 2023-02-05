@@ -8,7 +8,7 @@ import { parse } from 'url'
 import db from './db'
 
 interface SessionWs extends WebSocket {
-    session_id: string
+    user: any
 }
 
 async function start() {
@@ -126,18 +126,19 @@ async function start() {
 
     wss.on('connection', (ws: SessionWs, req) => {
         cookieParser()(req as any, {} as any, () => {})
-        ws.session_id = (req as any).cookies.session_id || 'global'
+        ws.user = (req as any).cookies.user || {}
+        console.log('session', ws.user)
 
         ws.on('message', async (msg: string) => {
             const msgString = msg.toString()
 
             // it's a message
-            if (msgString.startsWith('MESSAGE:')) {
-                console.log(msgString.replace('MESSAGE: ', ''))
-            }
-            else {
-                console.log('normal', msgString)
-            }
+            // if (msgString.startsWith('MESSAGE:')) {
+            //     console.log(msgString.replace('MESSAGE: ', ''))
+            // }
+            // else {
+            //     console.log('normal', msgString)
+            // }
             // const message = await db.message.create({
             //   data: {
             //       userid: user_id,
@@ -145,14 +146,20 @@ async function start() {
             //       content: msg.toString(),
             //   },
             //});
+
             wss.clients.forEach((client) => {
-                const c = client as SessionWs
-                if (c.session_id == ws.session_id) {
-                    client.send(`Session: ${ws.session_id}, new message: ${msg}`);
-                }
-                else {
-                    client.send(`Session: ${ws.session_id}, new message: ${msg}`);
-                }
+                const s = JSON.stringify({
+                    id: (ws as SessionWs).user?.id,
+                    message: {
+                        content: msgString,
+                    },
+                    user: {
+                        name: (ws as SessionWs).user?.email || '',
+                        id: (ws as SessionWs).user?.id
+                    }
+                })
+                console.log(s)
+                client.send(s)
             })
         });
 
