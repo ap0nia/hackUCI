@@ -23,7 +23,7 @@ model migration_internal_statements {
 model message {
   id        Int    @id @default(sequence())
   userid    Int
-  sessionid String @db.String(255)
+  sessionid Int
   content   String @db.String(255)
 }
 
@@ -32,5 +32,5 @@ model user {
   email     String @db.String(255)
   name      String @db.String(255)
   role      String @db.String(255)
-  sessionid String @db.String(255)
+  sessionid Int
 }
