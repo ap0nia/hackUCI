@@ -51,19 +51,6 @@
       message = "";
     }
   }
-
-  export let messages1 = [
-    {
-      message: "Gaming is epic",
-      mine: true,
-      name: "VillV",
-    },
-    {
-      message: "Wine is epic",
-      mine: false,
-      name: "Eden",
-    },
-  ];
 </script>
 
 <div id="mainmain">

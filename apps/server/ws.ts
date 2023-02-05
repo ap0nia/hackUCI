@@ -1,14 +1,16 @@
 import expressWs from 'express-ws';
-import { Server, WebSocket, OPEN } from 'ws'
+import { Server, WebSocket } from 'ws'
 import db from './db'
 
 function createWsRouter(router: expressWs.Router, wss: Server<WebSocket>) {
-    router.ws('/chat', async function(ws, req) {
-        const cookieUser = JSON.parse(req.cookies?.user || '{}')
+    router.ws('/api/chat', async function(ws, req) {
+        const query = req.query.cookie as string
+        console.log({query})
+        const cookieUser = JSON.parse(query || '{}')
         const user_id = cookieUser.id || 1
         const session_id = 1
 
-        console.log({ cookieUser })
+        console.log('cookie', cookieUser)
 
         const user = await db.user.findFirst({
             where: {
@@ -42,7 +44,7 @@ function createWsRouter(router: expressWs.Router, wss: Server<WebSocket>) {
             });
 
             wss.clients.forEach((client) => {
-                if (client.readyState == OPEN) {
+                if (client.readyState === 1) {
                     client.send(JSON.stringify({ message, user }))
                 }
             });

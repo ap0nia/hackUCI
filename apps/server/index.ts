@@ -4,6 +4,8 @@ import cookieParser from 'cookie-parser'
 import expressWs from 'express-ws'
 import createWsRouter from './ws'
 import db from './db'
+import cors from 'cors'
+// import { handler } from '../web/build/handler.js'
 
 const router = express.Router()
 
@@ -13,21 +15,31 @@ async function start() {
    */
   const { app, getWss } = expressWs(express())
 
+  app.use(cors({
+    origin: true,
+    credentials: true
+  }));
+
   app.use(bodyParser.json())
   app.use(cookieParser())
   app.use(createWsRouter(router, getWss()))
 
+  app.use((req, res, next) => {
+    console.log('cookies', req.cookies)
+    next()
+  })
+
   /**
-   * '/' route will respond with "Hello World"
+   * '/api' route will respond with "Hello World"
    */
-  app.get('/', (_req, res) => {
+  app.get('/api', (_req, res) => {
     res.send('Hello World!')
   })
 
   /**
    * @example: user sends POST request for all messages with email
    */
-  app.post('/messages', async (req, res) => {
+  app.post('/api/messages', async (req, res) => {
     /**
      * 1) get email from the request body
      */
@@ -71,7 +83,9 @@ async function start() {
   /**
    * TODO Jasmin: given a POST request to login, write the user's email to a cookie
    */
-  app.post('/login', async (req, res) => {
+  app.post('/api/login', async (req, res) => {
+    console.log(req.body.email)
+
     /**
      * 1) get the user's email from the request body
      */
@@ -88,7 +102,44 @@ async function start() {
     /**
      * 3) set the "user" cookie with the value of the user
      */
-      res.cookie('user', user)
+      res.cookie('user', user, {
+        path: '/',
+        maxAge: 1000 * 60 * 60 * 24 * 7,
+      })
+
+    /**
+     * 4) send a response confirming their login, e.g. "Logged in as <user.email>"
+     */
+    res.json(user)
+  })
+
+  app.post('/api/register', async (req, res) => {
+    console.log(req.body.email)
+
+    /**
+     * 1) get the user's email from the request body
+     */
+    const email = req.body.email
+
+    /**
+     * 2) find the user in the database
+     */
+      const user = await db.user.create({
+        data: {
+          role: 'user',
+          sessionid: 123,
+          name: email,
+          email
+        }
+      })
+
+    /**
+     * 3) set the "user" cookie with the value of the user
+     */
+      res.cookie('user', user, {
+        path: '/',
+        maxAge: 1000 * 60 * 60 * 24 * 7
+      })
 
     /**
      * 4) send a response confirming their login, e.g. "Logged in as <user.email>"
@@ -97,10 +148,11 @@ async function start() {
   })
 
 
+
   /**
    * TODO Thang: given a POST request to join a session, return the session data
    */
-  app.post('/session', async (req, res) => {
+  app.post('/api/session', async (req, res) => {
     /**
      * 1) get the session ID from the request body
      */
@@ -120,6 +172,8 @@ async function start() {
      */
     res.json(sessions)
   })
+
+  // app.use(handler)
 
   /**
    * start the server on port 3000

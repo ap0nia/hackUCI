@@ -1,12 +1,33 @@
+<script lang="ts">
+  import { PUBLIC_API } from '$env/static/public'
+
+  let email = "";
+
+  function submit() {
+    fetch(`${PUBLIC_API}/register`, {
+      method: "POST",
+      credentials: 'include',
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ email }),
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        console.log(data);
+      });
+  }
+</script>
+
 <div class="form-container">
   <h1>Register for a new account</h1>
-  <form method="post">
+  <form method="POST">
     <div id="imgcontainer">
       <img src="/favicon.png" alt="" />
     </div>
     <div class="form-group">
       <label for="email">Email:</label>
-      <input placeholder="email" type="text" id="email" name="email" />
+      <input placeholder="email" type="text" id="email" name="email" bind:value={email} />
     </div>
     <div class="flex justify-center">
       <button class="bg-green-400 rounded p-4 px-8 m-2">Submit</button>
