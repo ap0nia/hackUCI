@@ -7,7 +7,7 @@
   let session = ''
 
   async function submit() {
-    const res = await fetch(`${PUBLIC_API}`, {
+    const res = await fetch(`${PUBLIC_API}/join`, {
       credentials: 'include',
       method: 'POST',
       headers: {
