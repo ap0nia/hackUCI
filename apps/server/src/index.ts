@@ -55,9 +55,12 @@ async function start() {
         if (!req.body.email) {
             return res.json({})
         }
-        const user = await db.user.findFirst({
+        const user = await db.user.update({
             where: {
                 email: req.body.email
+            },
+            data: {
+                session_id: req.body.session || '123',
             }
         })
         res.cookie('user', user, { maxAge: 1000 * 60 * 60 * 24 * 7 })
@@ -70,7 +73,8 @@ async function start() {
         }
         const user = await db.user.create({
             data: {
-                email: req.body.email
+                email: req.body.email,
+                session_id: req.body.session || '123',
             }
         })
         res.cookie('user', user, { maxAge: 1000 * 60 * 60 * 24 * 7 })
