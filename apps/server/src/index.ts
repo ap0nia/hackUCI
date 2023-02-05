@@ -9,7 +9,7 @@ const app = express();
 const server = http.createServer(app);
 
 //initialize the WebSocket server instance
-const wss = new WebSocketServer({ server });
+const wss = new WebSocketServer({ noServer: true });
 
 app.get('/', (req, res) => {
     res.send('Hello World!');
@@ -17,7 +17,7 @@ app.get('/', (req, res) => {
 
 server.on('upgrade', function upgrade(request, socket, head) {
     const pathname = parse(request?.url || '').pathname;
-    if (pathname === '/ws') {
+    if (pathname === '/api/chat') {
         wss.handleUpgrade(request, socket, head, function done(ws) {
             wss.emit('connection', ws, request);
         });
