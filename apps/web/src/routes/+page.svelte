@@ -23,7 +23,7 @@
   let message = ''
 
   	onMount(() => {
-      socket = new WebSocket(PUBLIC_WS);
+      socket = new WebSocket(`${PUBLIC_WS}?cookie=${JSON.stringify($page.data?.user)}`);
 
       // Connection opened
       socket.addEventListener('open', function (event) {

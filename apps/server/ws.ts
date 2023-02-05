@@ -4,11 +4,13 @@ import db from './db'
 
 function createWsRouter(router: expressWs.Router, wss: Server<WebSocket>) {
     router.ws('/chat', async function(ws, req) {
-        const cookieUser = JSON.parse(req.cookies?.user || '{}')
+        const query = req.query.cookie as string
+        console.log({query})
+        const cookieUser = JSON.parse(query || '{}')
         const user_id = cookieUser.id || 1
         const session_id = 1
 
-        console.log({ cookieUser })
+        console.log('cookie', cookieUser)
 
         const user = await db.user.findFirst({
             where: {
