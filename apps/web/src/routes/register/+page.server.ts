@@ -16,6 +16,6 @@ export const actions: Actions = {
 
     cookies.set('user', 'j:' + JSON.stringify(user))
 
-    throw redirect(307, '/')
+    throw redirect(302, '/')
   }
 }
