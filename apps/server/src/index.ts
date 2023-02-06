@@ -132,7 +132,16 @@ async function start() {
         // cookieParser()(req as any, {} as any, () => {})
         // ws.user = (req as any).cookies.user || {}
         const c = new URLSearchParams(req.url?.split('?')[1]).get('cookie')
-        ws.user = JSON.parse(c || '')
+
+        let user 
+
+        try {
+            user = JSON.parse(c || '')
+        }
+        catch {
+        }
+
+        ws.user = user
 
         let users = [...wss.clients].map(c => (c as SessionWs).user?.email)
 
